@@ -11,6 +11,7 @@ import 'package:dsi32_flutter_project/features/products/presentation/pages/produ
 import 'package:dsi32_flutter_project/features/products/presentation/widgets/product_page/delete_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductsItemsWidget extends StatelessWidget {
   final List<Product> products;
@@ -57,16 +58,13 @@ class ProductsItemsWidget extends StatelessWidget {
                   ],
                 ),
                 InkWell(
+ /****************************************************************************************************/                
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ProductItemPage(
-                          product: products[i],
-                        ),
-                      ),
-                    );
+                           GoRouter.of(context).goNamed('detailsproduct',extra: products[i]);
                   },
+ /****************************************************************************************************/                
+
+
                   child: Container(
                     margin: const EdgeInsets.all(10),
                     height: 120,
@@ -132,7 +130,7 @@ class ProductsItemsWidget extends StatelessWidget {
               if (state is MessageAddUpdateDeleteProductState) {
                 SnackBarMessage().showSuccessSnackBar(
                     message: state.message, context: context);
-                Navigator.pop(context);
+            GoRouter.of(context).pushNamed('product');
 
                 // To handel the refresh nd multi snack bar that appears
                 if (state is! LoadingAddUpdateDeleteProductState) {
@@ -140,7 +138,7 @@ class ProductsItemsWidget extends StatelessWidget {
                       .add(RefreshProductsEvent());
                 }
               } else if (state is ErrorAddUpdateDeleteProductState) {
-                Navigator.of(context).pop();
+            GoRouter.of(context).pushNamed('product');
                 SnackBarMessage().showErrorSnackBar(
                     message: state.message, context: context);
               }
