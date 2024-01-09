@@ -34,12 +34,7 @@ class AddProductPage extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          context.read<LandingPageBloc>().add(TabChange(tabIndex: 0));
-          if (isUpdateProduct == false) {
-            Navigator.pop(context);
-          } else {
-          //  router.go("/products");
-          }
+            GoRouter.of(context).goNamed('product');
         },
       ),
     );
@@ -56,9 +51,9 @@ class AddProductPage extends StatelessWidget {
                 SnackBarMessage().showSuccessSnackBar(
                     message: state.message, context: context);
                 if (isUpdateProduct == true) {
-                  context.go("/products");
+            GoRouter.of(context).goNamed('product');
                 } else {
-                  Navigator.pop(context);
+            GoRouter.of(context).goNamed('product');
                 }
 
                 BlocProvider.of<ProductBloc>(context)
