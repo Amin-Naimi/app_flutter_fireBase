@@ -3,6 +3,7 @@ import 'package:dsi32_flutter_project/features/products/presentation/pages/add_p
 import 'package:dsi32_flutter_project/features/products/presentation/pages/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
   const MyBottomNavigationBar({Key? key}) : super(key: key);
@@ -17,19 +18,9 @@ class MyBottomNavigationBar extends StatelessWidget {
             context.read<LandingPageBloc>().add(TabChange(tabIndex: index));
 
             if (index == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const ProductPage(),
-                ),
-              );
+              GoRouter.of(context).pushNamed('product');
             } else if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => AddProductPage(isUpdateProduct: false),
-                ),
-              );
+              GoRouter.of(context).pushNamed('addproduct',extra: false);
             }
           },
           selectedItemColor: Colors.indigo,
